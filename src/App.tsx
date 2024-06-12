@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className="bg-gray-300">
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
         {users.map((user) => (
          Card(user)
         ))}
