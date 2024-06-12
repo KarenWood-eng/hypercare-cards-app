@@ -39,13 +39,13 @@ function App() {
   }
 
   return (
-    <>
+    <div className="bg-gray-300">
       <div className="flex flex-wrap">
         {users.map((user) => (
          Card(user)
         ))}
       </div>
-    </>
+    </div>
   )
 
 }
