@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { User, UserData} from "./types"
 import Card from "./Card"
+import Modal from "./Modal"
 
 async function fetchUsers(): Promise<UserData> {
   const response = await fetch('https://9e06da9a-97cf-4701-adfc-9b9a5713bbb9.mock.pstmn.io/users')
@@ -15,6 +16,8 @@ function App() {
   const [error, setError] = useState<string | null>(null)
 
   const [loading, setLoding] = useState<boolean>(true)
+
+  const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
   useEffect(() => {
     async function fetchData() {
@@ -40,11 +43,12 @@ function App() {
 
   return (
     <div className="bg-gray-300">
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center h-screen overflow-y-scroll">
         {users.map((user) => (
-         Card(user)
+         <Card user={user} setSelectedUser={setSelectedUser}/>
         ))}
       </div>
+      {selectedUser && <Modal user={selectedUser} setSelectedUser={setSelectedUser} />}
     </div>
   )
 
