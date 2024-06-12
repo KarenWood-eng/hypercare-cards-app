@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react"
+import { User, UserData} from "./types"
+import Card from "./Card"
+
+async function fetchUsers(): Promise<UserData> {
+  const response = await fetch('https://9e06da9a-97cf-4701-adfc-9b9a5713bbb9.mock.pstmn.io/users')
+  const data = await response.json()
+  return data;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [users, setUsers] = useState<User[]>([])
+
+  const [error, setError] = useState<string | null>(null)
+
+  const [loading, setLoding] = useState<boolean>(true)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const userData = await fetchUsers()
+        setUsers(userData.data.users)
+      } catch (e: any) {
+        setError(e.message)
+      } finally{
+        setLoding(false)
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading!!!!!!</div>
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="flex flex-wrap">
+        {users.map((user) => (
+         Card(user)
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
+
 }
 
 export default App
