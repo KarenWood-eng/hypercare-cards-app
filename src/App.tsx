@@ -5,7 +5,7 @@ import Modal from "./Modal"
 import SearchBar from "./SearchBar"
 
 async function fetchUsers(): Promise<UserData> {
-  const response = await fetch('https://9e06da9a-97cf-4701-adfc-9b9a5713bbb9.mock.pstmn.io/users')
+  const response = await fetch("https://9e06da9a-97cf-4701-adfc-9b9a5713bbb9.mock.pstmn.io/users")
   const data = await response.json()
   return data;
 }
