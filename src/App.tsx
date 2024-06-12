@@ -34,7 +34,12 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div>Loading!!!!!!</div>
+    return  (
+      <>
+        <div className="text-center mt-40 text-3xl">Loading ...</div>
+        <img className="m-auto" src="https://motiongraphicsphoebe.wordpress.com/wp-content/uploads/2018/10/tumblr_nurhzkukqo1syz1nro1_500.gif?w=600"/>
+      </>
+    )
   }
 
   if (error) {
