@@ -2,6 +2,9 @@ To get the project running:
 1) npm install
 2) npm run dev
 
+To run the tests:
+npm test
+
 Locally runs on :  http://localhost:5173/
 
 # React + TypeScript + Vite
